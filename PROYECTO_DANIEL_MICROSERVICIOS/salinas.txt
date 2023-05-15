@@ -1,0 +1,34 @@
+CONSTRUYENDO IMAGEN DOCKER DE SERVER
+
+docker build -t servicio-config:latest .	= construye la imagen
+docker network create springcloudcredi	= CREAMOS LA RED
+docker run -p 8888:8888 --name servicio-config --network springcloudcredi servicio-config:v1
+docker container ls
+
+===================================================================================
+
+CONSTRUYENDO IMAGEN DOCKER DE SERVER
+
+docker build -t servicio-eureka-server:latest .
+docker run -p 8761:8761 --name servicio-eureka-server --network springcloudcredi servicio-eureka-server:v1
+
+===================================================================================
+
+DESCARGANDO IMAGEN DOCKER PARA MYSQL
+
+docekr pull mysql:8		= DEESCARGA LA IMAGEN DE MYSQL 8
+//service mysql start		= INICIAR SERVICIO MYSQL
+//service mysql stop		= BAJAR SERVICIO MYSQL
+docker run -p 3306:3306 --name microservicios-mysql8 --network springcloudcredi -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=db_springboot_creditos -d mysql:8
+
+===================================================================================
+
+docker build -t cotizacion-creditos:latest .
+docker run -p 9094:9094 --network springcloudcredi cotizacion-creditos:v1
+
+===================================================================================
+
+docker build -t cotizacion:latest .
+docker run -p 9093:9003 --network springcloudcredi cotizacion:v1
+
+===================================================================================
